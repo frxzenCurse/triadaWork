@@ -1,0 +1,17 @@
+.grid {
+  display: grid;
+  grid-template-columns: 3fr 8fr;
+  column-gap: 40px;
+}
+
+.item {
+  &:nth-child(1) {
+    align-self: center;
+  }
+}
+
+.row {
+  margin-top: 40px;
+  display: flex;
+  justify-content: flex-end;
+}

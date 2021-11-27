@@ -1,0 +1,32 @@
+.form {
+  padding: 30px;
+}
+
+.text {
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+.list {
+  margin-top: 20px;
+}
+
+.item {
+  width: 400px;
+  display: flex;
+  align-items: flex-end;
+
+  &:not(:first-child) {
+    margin-top: 20px;
+  }
+}
+
+.index {
+  margin-right: 15px;
+}
+
+.button {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+}

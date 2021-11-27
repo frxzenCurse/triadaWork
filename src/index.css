@@ -7,7 +7,27 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.title {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.tasks-list {
+  margin-top: 40px;
+}
+
+.tasks-list__grid {
+  display: grid;
+  row-gap: 40px;
+  column-gap: 40px;
+  grid-template-columns: repeat(3, 1fr);
 }
