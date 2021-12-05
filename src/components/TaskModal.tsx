@@ -3,23 +3,23 @@ import ModalHeader from "@material-tailwind/react/ModalHeader";
 import ModalBody from "@material-tailwind/react/ModalBody";
 import ModalFooter from "@material-tailwind/react/ModalFooter";
 import Button from "@material-tailwind/react/Button";
-import Input from "@material-tailwind/react/Input";
-import React from "react";
+import React, { useEffect } from "react";
 import cl from '../styles/TaskModal.module.scss'
-import { useForm, SubmitHandler, useFieldArray, Controller } from 'react-hook-form';
+import { useForm, SubmitHandler, useFieldArray } from 'react-hook-form';
+import MyInput from "./common/MyInput";
 
 interface TaskModalProps {
   showModal: boolean;
   closeModal: () => void;
-  // setTask: () => void;
+  setTask: (task: FormValues) => void;
 }
 
-interface FormValues {
+export interface FormValues {
   title: string;
   tasks: { text: string }[];
 }
 
-export const TaskModal: React.FC<TaskModalProps> = ({ showModal, closeModal }) => {
+export const TaskModal: React.FC<TaskModalProps> = ({ showModal, closeModal, setTask }) => {
 
   const {
     handleSubmit,
@@ -30,7 +30,6 @@ export const TaskModal: React.FC<TaskModalProps> = ({ showModal, closeModal }) =
   } = useForm<FormValues>({
     defaultValues: {
       tasks: [{ text: '' }],
-      title: '',
     }
   })
   const { fields, append } = useFieldArray({
@@ -38,55 +37,33 @@ export const TaskModal: React.FC<TaskModalProps> = ({ showModal, closeModal }) =
     name: "tasks",
   });
 
-  const RefInput = React.forwardRef((props, ref) => (
-    <Input
-      type="text"
-      color="lightBlue"
-      size="regular"
-      outline={true}
-      placeholder="Заголовок"
-      inputRef={ref}
-      {...props}
-    />
-  ));
-  const ref = React.createRef();
+  const onSubmit: SubmitHandler<FormValues> = data => setTask(data)
 
-  const onSubmit: SubmitHandler<FormValues> = data => console.log(data);
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset()
+      closeModal()
+    }
+  }, [isSubmitSuccessful])
 
   return (
     <Modal size="regular" active={showModal} toggler={closeModal}>
-      <ModalHeader toggler={closeModal}>
-        Modal Title
-      </ModalHeader>
-      <ModalBody>
-        <form action="/" className={cl.form} onSubmit={handleSubmit(onSubmit)}>
-          <Controller
-            name="title"
-            control={control}
-            render={
-              ({ field }) => <RefInput {...field} ref={ref} />
-            }
-          />
+      <form action="/" className={cl.form} onSubmit={handleSubmit(onSubmit)}>
+        <ModalHeader toggler={closeModal}>
+          Modal Title
+        </ModalHeader>
+        <ModalBody>
+          <MyInput type='text' placeholder="Заголовок задачи" {...register('title', { required: true })} />
+          {errors.title && <div className="error-message">Поле обязательно для заполнения</div>}
           <div className={cl.text}>Список задач</div>
           <ul className={cl.list}>
             {fields.map((field, index) =>
               <li className={cl.item} key={field.id}>
-                <div className={cl.index}>{index + 1}.</div>
-                <Controller
-                  name={`tasks.${index}.text`}
-                  control={control}
-                  render={
-                    ({ field }) =>
-                      <Input
-                        type="text"
-                        color="lightBlue"
-                        size="sm"
-                        outline={false}
-                        placeholder="Задача"
-                        {...field}
-                      />
-                  }
-                />
+                <div className={cl.row}>
+                  <div className={cl.index}>{index + 1}.</div>
+                  <MyInput type='text' {...register(`tasks.${index}.text`, { required: true })} />
+                </div>
+                {errors.tasks ? <div className="error-message">Поле обязательно для заполнения</div> : null}
               </li>
             )}
           </ul>
@@ -102,29 +79,28 @@ export const TaskModal: React.FC<TaskModalProps> = ({ showModal, closeModal }) =
               onClick={() => append([{ text: '' }])}
               type="button"
             >
-              Добавить задачу
+              Добавить подзадачу
             </Button>
           </div>
-          <button>submit</button>
-        </form>
-      </ModalBody>
-      <ModalFooter>
-        <Button
-          color="red"
-          buttonType="link"
-          onClick={closeModal}
-          ripple="dark"
-        >
-          Close
-        </Button>
-        <Button
-          color="green"
-          onClick={() => console.log(123)}
-          ripple="light"
-        >
-          Save Changes
-        </Button>
-      </ModalFooter>
+        </ModalBody>
+        <ModalFooter>
+          <Button
+            color="red"
+            buttonType="link"
+            onClick={closeModal}
+            ripple="dark"
+            type='button'
+          >
+            Закрыть
+          </Button>
+          <Button
+            color="green"
+            ripple="light"
+          >
+            Добавить задачу
+          </Button>
+        </ModalFooter>
+      </form>
     </Modal>
   )
 }

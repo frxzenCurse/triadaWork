@@ -1,4 +1,8 @@
+import { configureStore } from '@reduxjs/toolkit'
+
+import {reducer} from './rootReducer'
 
 
-
-export const store = 'asd'
+export const store = configureStore({
+  reducer: reducer,
+})

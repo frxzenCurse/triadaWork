@@ -31,3 +31,16 @@ code {
   column-gap: 40px;
   grid-template-columns: repeat(3, 1fr);
 }
+
+.myInput {
+  padding: 5px 3px;
+
+  font-size: 18px;
+
+  border-bottom: 1px solid black;
+}
+
+.error-message {
+  font-size: 14px;
+  color: red;
+}

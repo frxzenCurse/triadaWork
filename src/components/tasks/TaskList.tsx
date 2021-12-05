@@ -4,17 +4,18 @@ import { TaskItem } from "./TaskItem"
 import H2 from "@material-tailwind/react/Heading2";
 
 interface TaskListProps {
-  list: TasksItemTypes[]
+  list: TasksItemTypes[],
 }
 
 export const TaskList: FC<TaskListProps> = ({ list }) => {
+
   return (
     <div className="tasks-list">
       {list.length
         ?
         <div className='tasks-list__grid'>
-          {list.map(task =>
-            <TaskItem task={task} key={task.id} />
+          {list.map((task, index) =>
+            <TaskItem task={task} index={index} key={task.id} />
           )}
         </div>
         :
