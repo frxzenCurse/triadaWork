@@ -10,5 +10,15 @@ export interface TasksState {
 export interface TasksItemTypes {
   id: number;
   title: string;
-  tasks: string[];
+  tasks: TaskItemTypes[];
+}
+
+export interface TaskItemTypes {
+  id: number;
+  checked: boolean;
+  text: string;
+}
+
+export interface ParamsTypes {
+  id: string;
 }

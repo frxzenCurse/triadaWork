@@ -3,24 +3,32 @@ import { Search } from "../components/header/Search"
 import { Sort } from "../components/header/Sort"
 import { TaskList } from "../components/tasks/TaskList"
 import cl from '../styles/Tasks.module.scss'
-import { RootState, TasksItemTypes, TasksState } from "../types"
+import { TasksItemTypes } from "../types"
 import Button from "@material-tailwind/react/Button";
 import { FormValues, TaskModal } from "../components/TaskModal"
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { useSelector, useDispatch } from "react-redux"
 import { addItem, setItems } from "../redux/slices/tasks"
+import { getTasks } from "../types/selectors"
 
 export const Tasks: FC = () => {
 
   const [showModal, setShowModal] = useState<boolean>(false);
-  const state = useSelector((state: RootState) => state.tasks)
+  const state = useSelector(getTasks)
   const dispatch = useDispatch()
 
   function setNewTask(task: FormValues) {
-    const newTask = {
+    const arr = task.tasks.map(item => {
+      return {
+        id: Math.round(Math.random() * 1000),
+        text: item.text,
+        checked: false,
+      }
+    })
+    const newTask: TasksItemTypes = {
       id: Math.round(Math.random() * 1000),
       title: task.title,
-      tasks: task.tasks.map(item => item.text)
+      tasks: arr,
     }
     dispatch(addItem(newTask))
   }

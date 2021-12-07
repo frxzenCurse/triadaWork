@@ -11,4 +11,5 @@ declare module "@material-tailwind/react/ModalFooter";
 declare module "@material-tailwind/react/ModalBody";
 declare module "@material-tailwind/react/ModalHeader";
 declare module "@material-tailwind/react/Modal";
+declare module "@material-tailwind/react/Heading1";
 declare module "react-beautiful-dnd";

@@ -32,9 +32,9 @@ export const TaskItem: FC<TaskItemProps> = ({ task, index }) => {
               <H6 color="gray">{task.title}</H6>
               <ul>
                 {task.tasks.map(item =>
-                  <li key={item}>
+                  <li key={item.id}>
                     <Paragraph color="gray">
-                      {item}
+                      {item.text}
                     </Paragraph>
                   </li>
                 )}

@@ -6,22 +6,29 @@ const initialState = {
     {
       id: 1,
       title: 'HEllo world',
-      tasks: ["qwe", "asd", "zxc"]
+      tasks: [
+        {id: 1, checked: false, text: 'qwe'},
+        {id: 2, checked: false, text: 'asd'},
+        {id: 3, checked: false, text: 'zxc'},
+      ]
     },
     {
       id: 2,
       title: 'Nice one',
-      tasks: ["hjkl", "dfg", "cvbn"]
+      tasks: [
+        {id: 1, checked: false, text: 'poi'},
+        {id: 2, checked: false, text: 'iuy'},
+        {id: 3, checked: false, text: 'hjk'},
+      ]
     },
     {
       id: 3,
       title: 'stop world',
-      tasks: ["fdgsdf", "tuyotyu", "khhf"]
-    },
-    {
-      id: 4,
-      title: 'go away world',
-      tasks: ["uiopjh", "bvgjhf", "qrehd"]
+      tasks: [
+        {id: 1, checked: false, text: 'yut'},
+        {id: 2, checked: false, text: 'dfgh'},
+        {id: 3, checked: false, text: 'cxvb'},
+      ]
     },
   ]
 } as TasksState
