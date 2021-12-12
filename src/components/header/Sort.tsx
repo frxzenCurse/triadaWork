@@ -1,17 +1,25 @@
 import { FC } from "react"
 import Select from 'react-select'
+import { SelectOptionsTypes } from "../../types"
 
-export const Sort: FC = () => {
+const options: SelectOptionsTypes[] = [
+  { value: 'title', label: 'Заголовку' },
+  { value: 'priority', label: 'Приоритету' },
+]
 
-  const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
-  ]
+interface SortProps {
+  onChange: (value: SelectOptionsTypes) => void;
+}
+
+export const Sort: FC<SortProps> = ({onChange}) => {
 
   return (
     <div>
-      <Select options={options} />
+      <Select 
+        placeholder='Сортировка по'
+        options={options} 
+        onChange={onChange}
+      />
     </div>
   )
 }

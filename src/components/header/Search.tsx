@@ -1,7 +1,12 @@
-import { FC } from "react"
+import React, { FC } from "react"
 import Input from "@material-tailwind/react/Input";
 
-export const Search: FC = () => {
+interface SearchProps {
+  value: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export const Search: FC<SearchProps> = ({value, onChange}) => {
   return (
     <Input
       type="text"
@@ -9,6 +14,8 @@ export const Search: FC = () => {
       size="lg"
       outline={true}
       placeholder="Поиск"
+      value={value}
+      onChange={onChange}
     />
   )
 }

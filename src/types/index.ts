@@ -10,6 +10,7 @@ export interface TasksState {
 export interface TasksItemTypes {
   id: number;
   title: string;
+  priority: number;
   tasks: TaskItemTypes[];
 }
 
@@ -21,4 +22,13 @@ export interface TaskItemTypes {
 
 export interface ParamsTypes {
   id: string;
+}
+
+export interface ClassesTypes {
+  cl: string;
+}
+
+export interface SelectOptionsTypes {
+  value: string;
+  label: string;
 }

@@ -21,3 +21,35 @@
   margin-left: 15px;
   font-size: 20px;
 }
+
+.buttons {
+  margin-left: auto;
+  display: flex;
+}
+
+.button {
+
+
+  &:not(:first-child) {
+    margin-left: 15px;
+  }
+}
+
+.input {
+  margin: 0 30px;
+  width: 100%;
+  pointer-events: none;
+
+  &.active {
+    pointer-events: all;
+  }
+
+  input {
+    padding: 5px 10px;
+    font-size: 20px;
+  }
+
+  label {
+    border: none;
+  }
+}

@@ -1,0 +1,29 @@
+.card {
+  height: 100%;
+  border: 1px solid transparent;
+
+  &.first {
+    border-color: red;
+  }
+  &.second {
+    border-color: blue;
+  }
+  &.third {
+    border-color: orange;
+  }
+  &.fourth {
+    border-color: green;
+  }
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.head {
+  margin-bottom: 20px;
+
+  display: flex;
+  justify-content: space-between;
+}

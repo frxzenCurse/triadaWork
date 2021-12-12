@@ -1,4 +1,4 @@
-import { FC, useState } from "react"
+import { FC, useState, useEffect, useMemo } from "react"
 import { Search } from "../components/header/Search"
 import { Sort } from "../components/header/Sort"
 import { TaskList } from "../components/tasks/TaskList"
@@ -13,9 +13,13 @@ import { getTasks } from "../types/selectors"
 
 export const Tasks: FC = () => {
 
-  const [showModal, setShowModal] = useState<boolean>(false);
   const state = useSelector(getTasks)
   const dispatch = useDispatch()
+
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [value, setValue] = useState<string>('')
+  const [tasks, setTasks] = useState<TasksItemTypes[]>([])
+  const [selectedSort, setSelectedSort] = useState<string>('')
 
   function setNewTask(task: FormValues) {
     const arr = task.tasks.map(item => {
@@ -29,6 +33,7 @@ export const Tasks: FC = () => {
       id: Math.round(Math.random() * 1000),
       title: task.title,
       tasks: arr,
+      priority: 5,
     }
     dispatch(addItem(newTask))
   }
@@ -59,14 +64,44 @@ export const Tasks: FC = () => {
     dispatch(setItems(items))
   }
 
+  useEffect(() => {
+    if (state) {
+      setTasks(state.tasks)
+    }
+  }, [state])
+
+  const sortedTasks = useMemo(() => {
+    if (selectedSort === 'title') {
+      return [...tasks].sort((a, b) => a[selectedSort].localeCompare(b[selectedSort]))
+    }
+
+    if (selectedSort === 'priority') {
+      return [...tasks].sort((a, b) => a.priority - b.priority)
+    }
+
+    return tasks
+  }, [selectedSort, tasks])
+
+  const searchedAndSortedTasks = useMemo(() => {
+    if (value) {
+      return [...sortedTasks].filter(item => item.title.toLowerCase().includes(value.toLowerCase()))
+    } else {
+      return sortedTasks
+    }
+  }, [value, sortedTasks])
+
+
   return (
     <div>
       <div className={cl.grid}>
         <div className={cl.item}>
-          <Sort />
+          <Sort onChange={(e) => setSelectedSort(e.value)} />
         </div>
         <div className={cl.item}>
-          <Search />
+          <Search
+            value={value}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value)}
+          />
         </div>
       </div>
       <div className={cl.row}>
@@ -81,7 +116,7 @@ export const Tasks: FC = () => {
         <Droppable droppableId="list">
           {(provided: any) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
-              <TaskList list={state.tasks} />
+              <TaskList list={searchedAndSortedTasks} />
               {provided.placeholder}
             </div>
           )}

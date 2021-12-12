@@ -10,3 +10,74 @@
 
   margin-top: 20px;
 }
+
+.buttons {
+  margin-top: 25px;
+  display: flex;
+}
+
+.button {
+
+  &:not(:first-child) {
+    margin-left: 15px;
+  }
+}
+
+.inner {
+  margin-top: 30px;
+
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  width: 50%;
+}
+
+.btn {
+  margin-left: 15px;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+
+  &:hover {
+
+    .change {
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
+
+  div {
+    height: auto;
+  }
+
+  input {
+    font-size: 50px;
+  }
+
+  label {
+    &::before {
+      display: none;
+    }
+  }
+
+  &.hide {
+    input {
+      pointer-events: none;
+    }
+    label {
+      border: none;
+    }
+  }
+}
+
+.change {
+  margin-left: 10px;
+
+  opacity: 0;
+  pointer-events: none;
+  transform: .3s;
+}

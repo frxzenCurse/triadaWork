@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { AppRouter } from './components/AppRouter';
 import { Navbar } from './components/navbar/Navbar';
@@ -9,6 +9,7 @@ import cl from './styles/App.module.scss'
 function App() {
 
   const dispatch = useDispatch()
+  const [isLoading, setIsLoading] = useState<boolean>(true)
 
   useEffect(() => {
     if (localStorage.getItem('tasks')) {
@@ -16,6 +17,8 @@ function App() {
       
       dispatch(setItems(JSON.parse(items || "[]")))
     }
+
+    setIsLoading(false)
   }, [])
 
   return (
@@ -25,7 +28,7 @@ function App() {
       </aside>
       <main className={cl.main}>
         <BrowserRouter>
-          <AppRouter />
+          {!isLoading && <AppRouter />}
         </BrowserRouter>
       </main>
     </div>
