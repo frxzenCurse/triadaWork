@@ -25,24 +25,24 @@ export const TaskDetail: FC = () => {
   const state = useSelector(getTasks)
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    state.tasks.filter(item => {
-      if (item.id === +id.id) {
-        setTask(item)
-      }
-    })
-  }, [])
+  // useEffect(() => {
+  //   state.tasks.filter(item => {
+  //     if (item.id === +id.id) {
+  //       setTask(item)
+  //     }
+  //   })
+  // }, [])
 
-  useEffect(() => {
-    if (task) {
-      setItem()
+  // useEffect(() => {
+  //   if (task) {
+  //     setItem()
 
-      if (!isMounted) {
-        setIsMounted(true)
-        setTitle(task.title)
-      }
-    }
-  }, [task])
+  //     if (!isMounted) {
+  //       setIsMounted(true)
+  //       setTitle(task.title)
+  //     }
+  //   }
+  // }, [task])
 
   function onChange(boolean: boolean, id: number) {
     const items = task.tasks.map(item => {
@@ -64,17 +64,17 @@ export const TaskDetail: FC = () => {
     setTask({ ...task, tasks: items })
   }
 
-  function setItem() {
-    const items = state.tasks.map(item => {
-      if (item.id === +id.id) {
-        return task
-      } else {
-        return item
-      }
-    })
+  // function setItem() {
+  //   const items = state.tasks.map(item => {
+  //     if (item.id === +id.id) {
+  //       return task
+  //     } else {
+  //       return item
+  //     }
+  //   })
 
-    dispatch(setItems(items))
-  }
+  //   dispatch(setItems(items))
+  // }
 
   const sortedTasks = useMemo<TasksItemTypes>(() => {
     if (isActive) {

@@ -1,0 +1,32 @@
+.item {
+  padding: 15px 20px;
+
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(3, 1fr);
+
+  border: 1px solid rgb(103, 58, 183);
+  border-radius: 8px;
+}
+
+.title {
+  cursor: pointer;
+}
+
+.tasks {
+  display: flex;
+  justify-content: center;
+}
+
+.buttons {
+  justify-content: flex-end;
+  display: flex;
+  align-items: center;
+}
+
+.button {
+
+  &:not(:first-child) {
+    margin-left: 10px;
+  }
+}

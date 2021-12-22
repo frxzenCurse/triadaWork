@@ -6,6 +6,7 @@ declare module "@material-tailwind/react/CardFooter";
 declare module "@material-tailwind/react/CardBody";
 declare module "@material-tailwind/react/Card";
 declare module "@material-tailwind/react/Heading6";
+declare module "@material-tailwind/react/Heading1";
 declare module "@material-tailwind/react/Paragraph";
 declare module "@material-tailwind/react/ModalFooter";
 declare module "@material-tailwind/react/ModalBody";

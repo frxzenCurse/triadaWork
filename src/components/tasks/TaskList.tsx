@@ -15,7 +15,7 @@ export const TaskList: FC<TaskListProps> = ({ list }) => {
         ?
         <div className='tasks-list__grid'>
           {list.map((task, index) =>
-            <TaskItem task={task} index={index} key={task.id} />
+            <TaskItem task={task} key={task.id} />
           )}
         </div>
         :

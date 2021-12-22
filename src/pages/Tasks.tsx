@@ -6,7 +6,6 @@ import cl from '../styles/Tasks.module.scss'
 import { TasksItemTypes } from "../types"
 import Button from "@material-tailwind/react/Button";
 import { FormValues, TaskModal } from "../components/TaskModal"
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { useSelector, useDispatch } from "react-redux"
 import { addItem, setItems } from "../redux/slices/tasks"
 import { getTasks } from "../types/selectors"
@@ -35,40 +34,14 @@ export const Tasks: FC = () => {
       tasks: arr,
       priority: 5,
     }
-    dispatch(addItem(newTask))
+    // dispatch(addItem(newTask))
   }
 
-  const reorder = (startIndex: number, endIndex: number) => {
-    const result = Array.from(state.tasks);
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
-
-    return result;
-  };
-
-  function onDragEnd(result: any) {
-
-    if (!result.destination) {
-      return;
-    }
-
-    if (result.destination.index === result.source.index) {
-      return;
-    }
-
-    const items = reorder(
-      result.source.index,
-      result.destination.index
-    );
-
-    dispatch(setItems(items))
-  }
-
-  useEffect(() => {
-    if (state) {
-      setTasks(state.tasks)
-    }
-  }, [state])
+  // useEffect(() => {
+  //   if (state) {
+  //     setTasks(state.tasks)
+  //   }
+  // }, [state])
 
   const sortedTasks = useMemo(() => {
     if (selectedSort === 'title') {
@@ -89,7 +62,6 @@ export const Tasks: FC = () => {
       return sortedTasks
     }
   }, [value, sortedTasks])
-
 
   return (
     <div>
@@ -112,16 +84,7 @@ export const Tasks: FC = () => {
         </div>
         <div className={cl.col}></div>
       </div>
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="list">
-          {(provided: any) => (
-            <div ref={provided.innerRef} {...provided.droppableProps}>
-              <TaskList list={searchedAndSortedTasks} />
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
+      {/* <TaskList list={searchedAndSortedTasks} /> */}
       <TaskModal showModal={showModal} closeModal={() => setShowModal(false)} setTask={setNewTask} />
     </div>
   )

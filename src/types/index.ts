@@ -1,17 +1,24 @@
 
 export interface RootState {
-  tasks: TasksState;
+  sections: TasksState;
 }
 
 export interface TasksState {
-  tasks: TasksItemTypes[]
+  sections: SectionTypes[]
+}
+
+export interface SectionTypes {
+  id: number;
+  title: string;
+  isClosed: boolean;
+  tasks: TasksItemTypes[];
 }
 
 export interface TasksItemTypes {
   id: number;
   title: string;
   priority: number;
-  tasks: TaskItemTypes[];
+  tasks: TaskItemTypes[] | [];
 }
 
 export interface TaskItemTypes {

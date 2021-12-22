@@ -1,25 +1,25 @@
-import { TasksItemTypes, TasksState } from './../../types/index';
+import { TasksItemTypes, TasksState, SectionTypes } from './../../types/index';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const initialState = {
-  tasks: []
+  sections: []
 } as TasksState
 
 const taskSlice = createSlice({
   name: 'tasks',
   initialState,
   reducers: {
-    setItems(state, action: PayloadAction<TasksItemTypes[]>) {
-      state.tasks = action.payload
-      localStorage.setItem('tasks', JSON.stringify(state.tasks))
+    setItems(state, action: PayloadAction<SectionTypes[]>) {
+      state.sections = action.payload
+      localStorage.setItem('section', JSON.stringify(state.sections))
     },
-    addItem(state, action: PayloadAction<TasksItemTypes>) {
-      state.tasks = [...state.tasks, action.payload]
-      localStorage.setItem('tasks', JSON.stringify(state.tasks))
+    addItem(state, action: PayloadAction<SectionTypes>) {
+      state.sections = [...state.sections, action.payload]
+      localStorage.setItem('section', JSON.stringify(state.sections))
     },
     removeItem(state, action: PayloadAction<number>) {
-      state.tasks = state.tasks.filter(el => el.id !== action.payload)
-      localStorage.setItem('tasks', JSON.stringify(state.tasks))
+      state.sections = state.sections.filter(el => el.id !== action.payload)
+      localStorage.setItem('tasks', JSON.stringify(state.sections))
     }
   }
 })

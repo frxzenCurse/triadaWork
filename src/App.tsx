@@ -14,7 +14,7 @@ function App() {
   useEffect(() => {
     if (localStorage.getItem('tasks')) {
       const items = localStorage.getItem('tasks')
-      
+
       dispatch(setItems(JSON.parse(items || "[]")))
     }
 
@@ -22,16 +22,16 @@ function App() {
   }, [])
 
   return (
-    <div className={cl.layout}>
-      <aside className={cl.aside}>
-        <Navbar />
-      </aside>
-      <main className={cl.main}>
-        <BrowserRouter>
+    <BrowserRouter>
+      <div className={cl.layout}>
+        <aside className={cl.aside}>
+          <Navbar />
+        </aside>
+        <main className={cl.main}>
           {!isLoading && <AppRouter />}
-        </BrowserRouter>
-      </main>
-    </div>
+        </main>
+      </div>
+    </BrowserRouter>
   );
 }
 
