@@ -24,15 +24,17 @@ const Sections: React.FC = () => {
 
 
   function addNewSection() {
-    const section: SectionTypes = {
-      id: Math.round(Math.random() * 1000),
-      title: value,
-      isClosed: false,
-      tasks: [],
+    if (value) {
+      const section: SectionTypes = {
+        id: Math.round(Math.random() * 1000),
+        title: value,
+        isClosed: false,
+        tasks: [],
+      }
+      
+      dispatch(addItem(section))
+      setValue('')
     }
-    
-    dispatch(addItem(section))
-    setValue('')
   }
 
   return (

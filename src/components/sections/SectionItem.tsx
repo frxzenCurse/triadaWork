@@ -23,11 +23,11 @@ const SectionItem: React.FC<SectionItemProps> = ({ section }) => {
         <H2>{section.title}</H2>
       </div>
       <div className={cl.tasks}>
-        {section.tasks.length 
+        {section.tasks.length
           ?
-          <div className={cl.number}>{section.tasks.length}</div>
+          <div className={cl.number}>Активных задач: {section.tasks.length}</div>
           :
-          <div className={cl.text}>Активных задач пока нет</div>
+          <div className={cl.number}>Активных задач пока нет</div>
         }
       </div>
       <div className={cl.buttons}>

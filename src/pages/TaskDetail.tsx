@@ -1,10 +1,9 @@
 import React, { FC, useEffect, useState, useMemo } from "react"
 import Button from "@material-tailwind/react/Button";
-import { useHistory, useParams } from "react-router";
-import { TASKS } from "../routes/constans";
+import { useHistory, useLocation, useParams } from "react-router";
 import { getTasks } from "../types/selectors";
 import { useSelector, useDispatch } from "react-redux";
-import { ParamsTypes, TaskItemTypes, TasksItemTypes } from "../types";
+import { LocationTypes, ParamsTypes, TaskItemTypes, TasksItemTypes } from "../types";
 import cl from '../styles/TaskDetail.module.scss'
 import TaskPoint from "../components/taskDetail/TaskPoint";
 import { setItems } from "../redux/slices/tasks";
@@ -21,28 +20,32 @@ export const TaskDetail: FC = () => {
 
   const history = useHistory()
   const id = useParams<ParamsTypes>()
+  const { pathname } = useLocation<LocationTypes>()
+  const sectionId = pathname.substring(7, pathname.length - 4)
 
   const state = useSelector(getTasks)
   const dispatch = useDispatch()
 
-  // useEffect(() => {
-  //   state.tasks.filter(item => {
-  //     if (item.id === +id.id) {
-  //       setTask(item)
-  //     }
-  //   })
-  // }, [])
 
-  // useEffect(() => {
-  //   if (task) {
-  //     setItem()
+  useEffect(() => {
 
-  //     if (!isMounted) {
-  //       setIsMounted(true)
-  //       setTitle(task.title)
-  //     }
-  //   }
-  // }, [task])
+    state.sections.filter(item => {
+      if (item.id === +sectionId) {
+        item.tasks.filter(el => el.id === +id.id ? setTask(el) : null)
+      }
+    })
+  }, [])
+
+  useEffect(() => {
+    if (task) {
+      setItem()
+
+      if (!isMounted) {
+        setIsMounted(true)
+        setTitle(task.title)
+      }
+    }
+  }, [task])
 
   function onChange(boolean: boolean, id: number) {
     const items = task.tasks.map(item => {
@@ -64,17 +67,28 @@ export const TaskDetail: FC = () => {
     setTask({ ...task, tasks: items })
   }
 
-  // function setItem() {
-  //   const items = state.tasks.map(item => {
-  //     if (item.id === +id.id) {
-  //       return task
-  //     } else {
-  //       return item
-  //     }
-  //   })
+  function setItem() {
+    const items = state.sections.map(item => {
+      if (item.id === +sectionId) {
 
-  //   dispatch(setItems(items))
-  // }
+        const result =  {...item, tasks: item.tasks.map(el => {
+          if (el.id === +id.id) {
+            
+            return task
+          } else {
+            return el
+          }
+        })}
+
+        console.log(result);
+        return result
+      } else {
+        return item
+      }
+    })
+
+    dispatch(setItems(items))
+  }
 
   const sortedTasks = useMemo<TasksItemTypes>(() => {
     if (isActive) {
@@ -131,7 +145,7 @@ export const TaskDetail: FC = () => {
         color="lightBlue"
         size="lg"
         ripple="light"
-        onClick={() => history.push(TASKS)}
+        onClick={() => history.push(pathname.substring(0, pathname.length - 4))}
       >
         Вернуться назад
       </Button>

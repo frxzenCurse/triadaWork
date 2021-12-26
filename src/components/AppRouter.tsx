@@ -1,5 +1,5 @@
 import { Route, Switch, Redirect } from 'react-router-dom'
-import { TASKS } from '../routes/constans'
+import { SECTIONS } from '../routes/constans'
 import { Routes } from '../routes/Routes'
 
 export const AppRouter = () => {
@@ -8,7 +8,7 @@ export const AppRouter = () => {
       {Routes.map(item =>
         <Route key={item.path} path={item.path} component={item.component} exact />
       )}
-      <Redirect to={TASKS} />
+      <Redirect to={SECTIONS} />
     </Switch>
   )
 }

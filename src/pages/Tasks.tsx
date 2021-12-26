@@ -3,12 +3,14 @@ import { Search } from "../components/header/Search"
 import { Sort } from "../components/header/Sort"
 import { TaskList } from "../components/tasks/TaskList"
 import cl from '../styles/Tasks.module.scss'
-import { TasksItemTypes } from "../types"
+import { ParamsTypes, SectionTypes, TasksItemTypes } from "../types"
 import Button from "@material-tailwind/react/Button";
 import { FormValues, TaskModal } from "../components/TaskModal"
 import { useSelector, useDispatch } from "react-redux"
-import { addItem, setItems } from "../redux/slices/tasks"
+import { setItems } from "../redux/slices/tasks"
 import { getTasks } from "../types/selectors"
+import { useParams } from "react-router-dom"
+import H2 from "@material-tailwind/react/Heading2";
 
 export const Tasks: FC = () => {
 
@@ -17,8 +19,10 @@ export const Tasks: FC = () => {
 
   const [showModal, setShowModal] = useState<boolean>(false);
   const [value, setValue] = useState<string>('')
-  const [tasks, setTasks] = useState<TasksItemTypes[]>([])
+  const [section, setSection] = useState<SectionTypes | null>(null)
   const [selectedSort, setSelectedSort] = useState<string>('')
+
+  const id = useParams<ParamsTypes>()
 
   function setNewTask(task: FormValues) {
     const arr = task.tasks.map(item => {
@@ -34,26 +38,50 @@ export const Tasks: FC = () => {
       tasks: arr,
       priority: 5,
     }
-    // dispatch(addItem(newTask))
+
+    setSection({ ...section, tasks: [...section.tasks, newTask] })
   }
 
-  // useEffect(() => {
-  //   if (state) {
-  //     setTasks(state.tasks)
-  //   }
-  // }, [state])
+  useEffect(() => {
+    state.sections.filter(item => {
+      if (item.id === +id.id) {
+        setSection(item)
+      }
+    })
+  }, [])
+
+
+  useEffect(() => {
+    if (section) {
+      const result = state.sections.map(item => {
+        if (item.id === section.id) {
+          return section
+        } else {
+          return item
+        }
+      })
+      
+      dispatch(setItems(result))
+    }
+  }, [section])
+
 
   const sortedTasks = useMemo(() => {
-    if (selectedSort === 'title') {
-      return [...tasks].sort((a, b) => a[selectedSort].localeCompare(b[selectedSort]))
-    }
+    if (section) {
 
-    if (selectedSort === 'priority') {
-      return [...tasks].sort((a, b) => a.priority - b.priority)
-    }
+      if (selectedSort === 'title') {
+        return [...section.tasks].sort((a, b) => a[selectedSort].localeCompare(b[selectedSort]))
+      }
 
-    return tasks
-  }, [selectedSort, tasks])
+      if (selectedSort === 'priority') {
+        return [...section.tasks].sort((a, b) => a.priority - b.priority)
+      }
+
+      return section.tasks
+    } else {
+      return []
+    }
+  }, [selectedSort, section])
 
   const searchedAndSortedTasks = useMemo(() => {
     if (value) {
@@ -63,8 +91,15 @@ export const Tasks: FC = () => {
     }
   }, [value, sortedTasks])
 
+  function deleteItem(id: number) {
+    setSection({...section, tasks: [...section.tasks].filter(item => item.id !== id)})
+  }
+
   return (
     <div>
+      <div className={cl.title}>
+        {section && <H2>{section.title}</H2>}
+      </div>
       <div className={cl.grid}>
         <div className={cl.item}>
           <Sort onChange={(e) => setSelectedSort(e.value)} />
@@ -84,7 +119,7 @@ export const Tasks: FC = () => {
         </div>
         <div className={cl.col}></div>
       </div>
-      {/* <TaskList list={searchedAndSortedTasks} /> */}
+      <TaskList deleteItem={deleteItem} list={searchedAndSortedTasks} />
       <TaskModal showModal={showModal} closeModal={() => setShowModal(false)} setTask={setNewTask} />
     </div>
   )

@@ -2,7 +2,7 @@ import React from 'react';
 import Sections from '../pages/Sections';
 import { TaskDetail } from '../pages/TaskDetail';
 import { Tasks } from '../pages/Tasks';
-import { TASKS, TASK_DETAIL, SECTIONS } from './constans';
+import { TASKS, SECTIONS } from './constans';
 
 interface routesTypes {
   path: string;
@@ -15,7 +15,7 @@ export const Routes: routesTypes[] = [
     component: Tasks,
   },
   {
-    path: TASK_DETAIL + '/:id',
+    path: TASKS + '/:id' + '/:id',
     component: TaskDetail,
   },
   {

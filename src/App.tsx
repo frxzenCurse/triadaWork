@@ -12,8 +12,8 @@ function App() {
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
   useEffect(() => {
-    if (localStorage.getItem('tasks')) {
-      const items = localStorage.getItem('tasks')
+    if (localStorage.getItem('sections')) {
+      const items = localStorage.getItem('sections')
 
       dispatch(setItems(JSON.parse(items || "[]")))
     }

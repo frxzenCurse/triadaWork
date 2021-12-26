@@ -39,3 +39,7 @@ export interface SelectOptionsTypes {
   value: string;
   label: string;
 }
+
+export interface LocationTypes {
+  pathname: string;
+}
