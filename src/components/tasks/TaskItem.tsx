@@ -93,7 +93,7 @@ export const TaskItem: FC<TaskItemProps> = ({ task, deleteItem }) => {
         </div>
         <ul>
           {card.tasks.map(item =>
-            <li key={item.id}>
+            <li key={item.id} className={item.checked ? [cl.item, cl.checked].join(' ') : cl.item}>
               <Paragraph color="gray">
                 {item.text}
               </Paragraph>

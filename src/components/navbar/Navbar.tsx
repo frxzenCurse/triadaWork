@@ -2,7 +2,8 @@ import { FC } from "react"
 import cl from '../../styles/Navbar.module.scss'
 import Button from "@material-tailwind/react/Button";
 import { useHistory } from "react-router-dom";
-import { SECTIONS, TASKS } from "../../routes/constans";
+import { SECTIONS } from "../../routes/constans";
+import Logo from "./Logo";
 
 export const Navbar: FC = () => {
 
@@ -10,7 +11,7 @@ export const Navbar: FC = () => {
 
   return (
     <div className={cl.navbar}>
-      logo
+      <Logo />
       <div className={cl.links}>
         <div className={cl.link}>
           <Button
@@ -24,20 +25,6 @@ export const Navbar: FC = () => {
             onClick={() => history.push(SECTIONS)}
           >
             Раздеры
-          </Button>
-        </div>
-        <div className={cl.link}>
-          <Button
-            color="lightBlue"
-            buttonType="link"
-            size="lg"
-            rounded={false}
-            block={true}
-            iconOnly={false}
-            ripple="dark"
-            onClick={() => history.push(TASKS)}
-          >
-            Задачи
           </Button>
         </div>
       </div>

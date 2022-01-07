@@ -1,6 +1,7 @@
 .card {
   height: 100%;
   border: 1px solid transparent;
+  transition: .3s;
 
   &.first {
     border-color: red;
@@ -13,6 +14,23 @@
   }
   &.fourth {
     border-color: green;
+  }
+}
+
+.item {
+
+  &:not(:first-child) {
+    margin-top: 10px;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+
+  &.checked {
+    p {
+      text-decoration: line-through;
+    }
   }
 }
 

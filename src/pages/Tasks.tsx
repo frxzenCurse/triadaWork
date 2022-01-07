@@ -48,7 +48,7 @@ export const Tasks: FC = () => {
         setSection(item)
       }
     })
-  }, [])
+  }, [state])
 
 
   useEffect(() => {
@@ -65,7 +65,11 @@ export const Tasks: FC = () => {
     }
   }, [section])
 
-
+  // useEffect(() => {
+  //   setSection(s)
+    
+  // }, [state])
+  
   const sortedTasks = useMemo(() => {
     if (section) {
 

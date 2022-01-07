@@ -41,20 +41,6 @@ const SectionItem: React.FC<SectionItemProps> = ({ section }) => {
             iconOnly={false}
             ripple="dark"
             type="button"
-          >
-            Закрыть
-          </Button>
-        </div>
-        <div className={cl.button}>
-          <Button
-            color="lightBlue"
-            buttonType="outline"
-            size="sm"
-            rounded={false}
-            block={false}
-            iconOnly={false}
-            ripple="dark"
-            type="button"
             onClick={() => dispatch(removeItem(section.id))}
           >
             Удалить

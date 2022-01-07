@@ -7,6 +7,11 @@
 
   border: 1px solid rgb(103, 58, 183);
   border-radius: 8px;
+  transition: .3s;
+
+  &:hover {
+    background: rgba(103, 58, 183, 0.1);
+  }
 }
 
 .number {
@@ -15,6 +20,10 @@
 
 .title {
   cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .tasks {
